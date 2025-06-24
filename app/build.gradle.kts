@@ -2,28 +2,30 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
-
 android {
-    namespace = "cn.hello.demo"
-    compileSdk = 33
+    apply (extra["appConfig"] as com.android.build.gradle.internal.dsl.BaseAppModuleExtension.()->Unit)
 
+    namespace = "cn.hello.demo"
     defaultConfig {
         applicationId = "cn.hello.demo"
         minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled= false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // 使用公共的签名配置
+            signingConfig = signingConfigs.getByName("signing")
+        }
+        debug {
+            isMinifyEnabled= false
+            // 使用公共的签名配置
+            signingConfig = signingConfigs.getByName("signing")
         }
     }
     compileOptions {
@@ -33,13 +35,38 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+//    flavorDimensions += listOf("environment")
+//    productFlavors {
+//        create("dev"){
+//            signingConfig = signingConfigs.getByName("signing")
+//            buildConfigField("String", "API_URL", "\"https://dev.api.example.com\"")
+//            dimension = "environment"
+//        }
+//        create("pro"){
+//            signingConfig = signingConfigs.getByName("signing")
+//            buildConfigField("String", "API_URL", "\"https://pro.api.example.com\"")
+//            dimension = "environment"
+//        }
+//    }
+    //定义分包
+//    splits {
+//        abi {
+//            this.isEnable = true
+//            this.isUniversalApk = false
+//            reset()
+//            this.include("armeabi-v7a", "arm64-v8a" ) // "x86", "x86_64"
+//        }
+//    }
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
+//    implementation(fileTree("libs").include("*.jar","*.aar"))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar","*.aar"))))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
