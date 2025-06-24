@@ -39,19 +39,23 @@ android {
         viewBinding = true
         buildConfig = true
     }
-//    flavorDimensions += listOf("environment")
-//    productFlavors {
-//        create("dev"){
-//            signingConfig = signingConfigs.getByName("signing")
-//            buildConfigField("String", "API_URL", "\"https://dev.api.example.com\"")
-//            dimension = "environment"
-//        }
-//        create("pro"){
-//            signingConfig = signingConfigs.getByName("signing")
-//            buildConfigField("String", "API_URL", "\"https://pro.api.example.com\"")
-//            dimension = "environment"
-//        }
-//    }
+    flavorDimensions += listOf("environment")
+    productFlavors {
+        create("dev"){
+            signingConfig = signingConfigs.getByName("signing")
+            buildConfigField("String", "API_URL", "\"https://dev.api.example.com\"")
+            buildConfigField("boolean", "FEATURE_ENABLED", "true")
+            manifestPlaceholders["app_name"] = "Hello_dev"
+            dimension = "environment"
+        }
+        create("pro"){
+            signingConfig = signingConfigs.getByName("signing")
+            buildConfigField("String", "API_URL", "\"https://pro.api.example.com\"")
+            buildConfigField("boolean", "FEATURE_ENABLED", "true")
+            manifestPlaceholders["app_name"] = "Hello_pro"
+            dimension = "environment"
+        }
+    }
     //定义分包
 //    splits {
 //        abi {

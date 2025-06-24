@@ -15,7 +15,7 @@ allprojects {
 
         signingConfigs {
             create("signing"){
-                storeFile= project.file("hello.jks")
+                storeFile= rootProject.file("hello.jks")
                 storePassword= "123456"
                 keyAlias = "Hello"
                 keyPassword = "123456"
@@ -51,41 +51,41 @@ allprojects {
     extra["appConfig"]= appConfig
 
     // 定义任务
-    task("incVersion"){
-        println("===111111 ===")
-        group = "android"
-        doFirst {
-            projectIncVersion(project)
-        }
-    }
+//    task("incVersion"){
+//        println("===111111 ===")
+//        group = "android"
+//        doFirst {
+//            projectIncVersion(project)
+//        }
+//    }
 
-    task("releaseApk") {
-        println("===222222 ===")
-        dependsOn("assembleRelease","incVersion")
-        group = "android"
-        doLast {
-            // 查找build Apk的文件
-            val releaseDir = File(project.buildDir.absolutePath , "/outputs/apk/release/")
-            val apkFiles = releaseDir.listFiles()?.filter {
-                it.extension == "apk"
-            }
-            // 移动所有的apk到公共的发布目录。
-            val outputDir = File(File(project.rootDir, "release"), project.name)
-            if(outputDir.exists()){
-                outputDir.deleteRecursively()
-            }
-            outputDir.mkdirs()
-            apkFiles?.forEach {
-                val toFile = File(outputDir, it.name)
-                it.renameTo(toFile)
-                println(toFile.absolutePath)
-            }
-            println("=== released apk:${project.name} ===")
-        }
-    }
+//    task("releaseApk") {
+//        println("===222222 ===")
+//        dependsOn("assembleRelease","incVersion")
+//        group = "android"
+//        doLast {
+//            // 查找build Apk的文件
+//            val releaseDir = File(project.buildDir.absolutePath , "/outputs/apk/release/")
+//            val apkFiles = releaseDir.listFiles()?.filter {
+//                it.extension == "apk"
+//            }
+//            // 移动所有的apk到公共的发布目录。
+//            val outputDir = File(File(project.rootDir, "release"), project.name)
+//            if(outputDir.exists()){
+//                outputDir.deleteRecursively()
+//            }
+//            outputDir.mkdirs()
+//            apkFiles?.forEach {
+//                val toFile = File(outputDir, it.name)
+//                it.renameTo(toFile)
+//                println(toFile.absolutePath)
+//            }
+//            println("=== released apk:${project.name} ===")
+//        }
+//    }
     task("wei_wei") {
         group = "android"
-        println("测试路径===${project.file("hello.jks")}")
+        println("测试路径===${rootProject.file("hello.jks")}")
     }
 }
 
