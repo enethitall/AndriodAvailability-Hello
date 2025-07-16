@@ -34,14 +34,19 @@ allprojects {
         }
 
         dependencies {
-
-            add("implementation", "org.jetbrains.kotlin:kotlin-stdlib:1.8.22")
+            add("testImplementation", "junit:junit:4.13.2")
+            add("androidTestImplementation", "androidx.test.ext:junit:1.1.5")
+            add("androidTestImplementation", "androidx.test.espresso:espresso-core:3.5.1")
             add("implementation", "androidx.core:core-ktx:1.9.0")
-            add("implementation", "androidx.appcompat:appcompat:1.6.1")
-            add("implementation", "com.google.android.material:material:1.8.0")
+            add("implementation", "androidx.appcompat:appcompat:1.9.0")
+            add("implementation", "com.google.android.material:material:1.9.0")
+            add("implementation", "androidx.activity:activity:1.9.0")
+            add("implementation", "androidx.fragment:fragment:1.6.1")
+            add("implementation", "androidx.recyclerview:recyclerview:1.3.1")
             add("implementation", "androidx.constraintlayout:constraintlayout:2.1.4")
-            add("implementation", "com.google.code.gson:gson:2.10.1")
-
+            add("implementation", "org.jetbrains.kotlin:kotlin-stdlib:1.8.22")
+            add("implementation", "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+            add("implementation", "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
             // 添加本地子模块依赖
 //            add("implementation", project(mapOf("path" to ":common")))
         }
